@@ -32,7 +32,23 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+.container {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.subContainer {
+  border: 0.2rem solid black;
+  margin: 0 20rem;
+  padding: 5rem 0;
+}
+
+.size {
+  border: 0 5rem;
 }
