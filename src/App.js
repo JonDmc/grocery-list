@@ -7,12 +7,24 @@ import GroceryList from './GroceryList';
 function App() {
 
   // const [newItem, setNewItem] = useState('')
-  // const [newCategory, setNewCategory] = useState(0)
+  // const [newCategory, setNewCategory] = useState('')
   const [newItem, setNewItem] = useState({
     item: '',
     category: ''
   })
   const [list, setList] = useState([])
+  // const [itemList, setItemList] = useState([])
+  const [catList, setCatList] = useState([
+    {
+      'value': 1,
+      'title': 'Bakery'
+    },
+    {
+      'value': 2,
+      'title': 'Beverage'
+    }
+  ])
+
   // handleSubmit = e => {
   //   e.preventDefault()
   // }
@@ -20,14 +32,29 @@ function App() {
   // handleTextChange = e => {
 
   // }
-  const addToList = (item) => {
-    let temp = [...list, item]
-    setList(temp)
-  }
+  // const addToList = (item) => {
+  //   let temp = [...list, item]
+  //   setList(temp)
+  // }
+  // const addToItemList = (item) => {
+  //   let temp = [...itemList, item]
+  //   setItemList(temp)
+  // }
+  // const addToCatList = (category) => {
+  //   let temp = [...catList, category]
+  //   setCatList(temp)
+  // }
+
 
   const submitList = (e) => {
     e.preventDefault()
-    addToList(newItem.item)
+    // console.log(newCategory)
+    console.log(newItem)
+    setList([...list, newItem])
+    // addToList(newItem)
+    // addToCatList(newCategory)
+    // addToItemList(newItem)
+
   }
 
 
@@ -43,15 +70,22 @@ function App() {
 
         <form className='subContainer' onSubmit={submitList}>
           <label htmlFor='category'>Category: </label>
-          <input
+          <select
             name='category'
             id='category'
             value={newItem.category}
             onChange={(e) => setNewItem({ ...newItem, category: e.target.value })}
-          // onChange={handleTextChange}
-          // value={category}
-          // type='number'
-          />
+          // onChange={(e) => setNewCategory(e.target.value)}
+          >
+            <option value='' disabled={true} >Select</option>
+            {catList.map((category, idx) => {
+              return (
+                <option key={idx} id={category.title} value={category.value}>
+                  {category.title}
+                </option>
+              )
+            })}
+          </select>
           <br />
           <label htmlFor='item'>Item: </label>
           <input
@@ -59,6 +93,7 @@ function App() {
             id='item'
             value={newItem.item}
             onChange={(e) => setNewItem({ ...newItem, item: e.target.value })}
+          // onChange={(e) => setNewItem(e.target.value)}
           // onChange={handleTextChange}
           // value={item}
           // type='text'
@@ -74,6 +109,7 @@ function App() {
 
       </div>
       <GroceryList list={list} />
+      {/* <GroceryList items={itemList} category={catList} /> */}
 
       <div>
         {/* {console.log(list)} */}
