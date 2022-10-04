@@ -1,11 +1,30 @@
+import { supabase } from './supabaseClient'
 
-const GroceryList = ({ list }) => {
+const GroceryList = ({ list, getItems, catList }) => {
 
+    const categories = {
+        1: 'bakery',
+        2: 'beverage',
+        3: 'meat',
+        4: 'berry',
+        5: 'condiments',
+    }
+
+    const deleteItem = async (num) => {
+        const { data, error } = await supabase
+            .from('item')
+            .delete()
+            .match({ id: num })
+        getItems()
+    }
     const groceryList = list.map((object, idx) => {
         return (
-            <li key={`item index: ${idx}`}>
-                {object.category}: {object.item}
-            </li>
+            <>
+                <li key={`item index: ${idx}`}>
+                    {categories[object.category]}: {object.name} { }
+                    <button key={`button index: ${idx}`} onClick={() => deleteItem(object.id)}> X </button>
+                </li>
+            </>
         )
     })
 
@@ -17,6 +36,7 @@ const GroceryList = ({ list }) => {
                     {groceryList}
                     {/* {console.log(list)} */}
                 </ul>
+
             </div>
         </>
     )

@@ -1,15 +1,16 @@
 import Form from './components/Form';
 import logo from './logo.svg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import GroceryList from './GroceryList';
+import { supabase } from './supabaseClient';
 
 function App() {
 
   // const [newItem, setNewItem] = useState('')
   // const [newCategory, setNewCategory] = useState('')
   const [newItem, setNewItem] = useState({
-    item: '',
+    name: '',
     category: ''
   })
   const [list, setList] = useState([])
@@ -50,10 +51,35 @@ function App() {
     e.preventDefault()
     // console.log(newCategory)
     console.log(newItem)
-    setList([...list, newItem])
+    insertItem()
+    getItems()
+    // setList([...list, newItem])
     // addToList(newItem)
     // addToCatList(newCategory)
     // addToItemList(newItem)
+
+  }
+
+  useEffect(() => {
+    getItems()
+  }, [])
+
+  const getItems = async () => {
+    const { data, error } = await supabase
+      .from('item')
+      .select()
+    setList(data)
+  }
+
+  const insertItem = async () => {
+    const { data, error } = await supabase
+      .from('item')
+      .insert([
+        {
+          category: newItem.category,
+          name: newItem.name
+        },
+      ])
 
   }
 
@@ -68,7 +94,7 @@ function App() {
           item={item}
         /> */}
 
-        <form className='subContainer' onSubmit={submitList}>
+        <form className='subContainer'>
           <label htmlFor='category'>Category: </label>
           <select
             name='category'
@@ -92,7 +118,7 @@ function App() {
             name='item'
             id='item'
             value={newItem.item}
-            onChange={(e) => setNewItem({ ...newItem, item: e.target.value })}
+            onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
           // onChange={(e) => setNewItem(e.target.value)}
           // onChange={handleTextChange}
           // value={item}
@@ -102,13 +128,13 @@ function App() {
 
           <br />
           <br />
-          <input type='submit' />
+          <input type='submit' onClick={insertItem} />
 
         </form>
 
 
       </div>
-      <GroceryList list={list} />
+      <GroceryList list={list} getItems={getItems} catList={catList} />
       {/* <GroceryList items={itemList} category={catList} /> */}
 
       <div>
