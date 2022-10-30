@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import { useEffect, useState } from 'react';
 import './App.css';
 import GroceryList from './GroceryList';
+import categories from './categories';
 import { supabase } from './supabaseClient';
 
 function App() {
@@ -14,64 +15,7 @@ function App() {
     category: ''
   })
   const [list, setList] = useState([])
-  const [catList, setCatList] = useState([
-    {
-      'value': 1,
-      'title': 'Bakery'
-    },
-    {
-      'value': 2,
-      'title': 'Baking'
-    },
-    {
-      'value': 3,
-      'title': 'Beverage'
-    },
-    {
-      'value': 4,
-      'title': 'Breakfast & Cereal'
-    },
-    {
-      'value': 5,
-      'title': 'Condiments & Spices'
-    },
-    {
-      'value': 6,
-      'title': 'Cookies, Candy & Snacks'
-    },
-    {
-      'value': 7,
-      'title': 'Frozen Foods'
-    },
-    {
-      'value': 8,
-      'title': 'Fruits & Vegetables'
-    },
-    {
-      'value': 9,
-      'title': 'Canned Goods & Soups'
-    },
-    {
-      'value': 10,
-      'title': 'Meat & Seafood'
-    },
-    {
-      'value': 11,
-      'title': 'Personal Care & Health'
-    },
-    {
-      'value': 12,
-      'title': 'Paper, Cleaning & Home'
-    },
-    {
-      'value': 13,
-      'title': 'Pet Care'
-    },
-    {
-      'value': 14,
-      'title': 'Wine, Beer & Spirits'
-    }
-  ])
+
 
   // handleSubmit = e => {
   //   e.preventDefault()
@@ -151,7 +95,7 @@ function App() {
           // onChange={(e) => setNewCategory(e.target.value)}
           >
             <option value='' disabled={true} >Select</option>
-            {catList.map((category, idx) => {
+            {categories.map((category, idx) => {
               return (
                 <option key={idx} id={category.title} value={category.value}>
                   {category.title}
@@ -181,7 +125,7 @@ function App() {
 
 
       </div>
-      <GroceryList list={list} getItems={getItems} catList={catList} />
+      <GroceryList list={list} getItems={getItems} catList={categories} />
       {/* <GroceryList items={itemList} category={catList} /> */}
 
       <div>
