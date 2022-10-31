@@ -16,7 +16,6 @@ function App() {
   })
   const [list, setList] = useState([])
 
-
   // handleSubmit = e => {
   //   e.preventDefault()
   // }
@@ -92,6 +91,7 @@ function App() {
             id='category'
             value={newItem.category}
             onChange={(e) => setNewItem({ ...newItem, category: e.target.value })}
+            className='md'
           // onChange={(e) => setNewCategory(e.target.value)}
           >
             <option value='' disabled={true} >Select</option>
@@ -104,12 +104,13 @@ function App() {
             })}
           </select>
           <br />
-          <label htmlFor='item'>Item: </label>
+          <label htmlFor='item' className='sm'>Item: </label>
           <input
             name='item'
             id='item'
             value={newItem.item}
             onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
+            className='md2'
           // onChange={(e) => setNewItem(e.target.value)}
           // onChange={handleTextChange}
           // value={item}
